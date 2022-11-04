@@ -27,7 +27,7 @@ Navigate to the environment file.
 cd src/environments/environment.ts
 ```
 
-Include your referential api key in the environment object.
+Enter your referential api key in the placeholder.
 
 ```
   referentialKey: '<YOUR_REFERENTIAL_KEY>'

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  referentialKey: '2fca842a6bmsh2388705b1c9eccbp1e8464jsnb42424802388',
+  referentialKey: '<YOUR_REFERENTIAL_KEY',
 };
 
 /*

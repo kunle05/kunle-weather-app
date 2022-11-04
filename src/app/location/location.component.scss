@@ -1,0 +1,11 @@
+.mat-form-field {
+  margin: 15px 7px 0;
+}
+
+::ng-deep .mat-form-field .mat-form-field-flex {
+  background-color: white;
+}
+
+::ng-deep .mat-form-field-disabled .mat-form-field-flex {
+  background-color: #f6f6f6a3 !important;
+}

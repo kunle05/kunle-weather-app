@@ -1,0 +1,17 @@
+<div>
+  <mat-form-field
+    *ngFor="let field of fieldsets; let i = index"
+    appearance="fill"
+  >
+    <mat-label>{{ field.name }}</mat-label>
+    <mat-select
+      (selectionChange)="onChange($event, field.name)"
+      [disabled]="loading || field.value.length === 0"
+      required
+    >
+      <mat-option *ngFor="let item of field.value" [value]="item.key">
+        {{ item.value }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>

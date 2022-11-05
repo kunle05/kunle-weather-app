@@ -1,0 +1,12 @@
+<mat-form-field class="example-full-width" appearance="fill">
+  <mat-label>Search a city, state or country</mat-label>
+  <input
+    matInput
+    [(ngModel)]="inputValue"
+    placeholder="Ex. Chicago"
+    (keydown.enter)="submit()"
+  />
+  <mat-icon matSuffix (click)="submit()">
+    <span class="material-symbols-outlined"> search </span>
+  </mat-icon>
+</mat-form-field>

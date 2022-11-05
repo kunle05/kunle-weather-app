@@ -1,11 +1,27 @@
-.mat-form-field {
+:host ::ng-deep.mat-form-field {
   margin: 15px 7px 0;
+  font-size: 0.75rem;
 }
 
 ::ng-deep .mat-form-field .mat-form-field-flex {
   background-color: white;
 }
 
-::ng-deep .mat-form-field-disabled .mat-form-field-flex {
+::ng-deep .mat-form-field-disabled .mat-form-field-flex, .button:disabled {
   background-color: #f6f6f6a3 !important;
 }
+
+:host ::ng-deep .mat-form-field-infix { 
+  height: 32px;
+  width: 120px !important;
+}
+
+.button {
+  vertical-align: super;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  color: #3f51b5;
+}
+
+// .mat-select-panel
+

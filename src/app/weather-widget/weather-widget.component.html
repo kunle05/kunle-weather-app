@@ -1,0 +1,43 @@
+<mat-card *ngIf="weather && !weather.error" class="h-100">
+  <span
+    *ngIf="closeBtnEnabled"
+    (click)="closeCard()"
+    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+  >
+    X
+    <span class="visually-hidden">close button</span>
+  </span>
+  <mat-card-content>
+    <h4 [ngClass]="{ smallFont: reducedFont }">
+      {{ location.address | toUppercase }}
+    </h4>
+    <h2 class="temp">
+      {{ weather.current_weather.temperature | number: "1.0-0" }}&deg;
+    </h2>
+    <p>{{ weather.current_weather.weathercode | wmoInterpret }}</p>
+    <p>
+      <span>
+        H:{{ weather.daily.apparent_temperature_max[0] | number: "1.0-0" }}&deg;
+      </span>
+
+      <span>
+        L:{{ weather.daily.apparent_temperature_min[0] | number: "1.0-0" }}&deg;
+      </span>
+    </p>
+  </mat-card-content>
+</mat-card>
+
+<mat-card *ngIf="weather && weather.error" class="h-100 d-flex">
+  <span
+    *ngIf="closeBtnEnabled"
+    (click)="closeCard()"
+    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+  >
+    X
+    <span class="visually-hidden">close button</span>
+  </span>
+  <mat-card-content class="error d-flex">
+    <p>{{ weather.error.reason }}</p>
+    <p>{{ location.address }}</p>
+  </mat-card-content>
+</mat-card>

@@ -1,5 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { WeatherService } from '../services/weather.service';
+import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { LatLng } from '../utils/latLng';
 
 @Component({
@@ -8,17 +7,31 @@ import { LatLng } from '../utils/latLng';
   styleUrls: ['./weather.component.scss'],
 })
 export class WeatherComponent implements OnInit {
-  // map = google.maps.Map;
+  locationList: LatLng[] = [];
+  btnActivated: boolean = false;
+  @Output() temperature: EventEmitter<number> = new EventEmitter();
+  @Input()
+  set location(data: LatLng) {
+    this.locationList.push(data);
+    this.validateBtn();
+  }
 
-  @Input() latLng!: LatLng;
+  constructor() {}
 
-  constructor(private _weatherService: WeatherService) {}
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-    this._weatherService
-      .getWeather(this.latLng.lat, this.latLng.lng)
-      .subscribe((data) => {
-        console.log(data);
-      });
+  removeWidget(pos: number): void {
+    if (this.locationList.length > 1) {
+      this.locationList.splice(pos, 1);
+      this.validateBtn();
+    }
+  }
+
+  setTemp(temp: number): void {
+    this.temperature.emit(temp);
+  }
+
+  validateBtn(): void {
+    this.btnActivated = this.locationList.length > 1 ? true : false;
   }
 }

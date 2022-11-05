@@ -1,1 +1,11 @@
-<p>weather works!</p>
+<div class="row p-2">
+  <app-weather-widget
+    *ngFor="let location of locationList; let i = index"
+    [location]="location"
+    [position]="i"
+    [closeBtnEnabled]="btnActivated"
+    (widgetToRemove)="removeWidget($event)"
+    (temperature)="setTemp($event)"
+    class="col-3 mb-4"
+  ></app-weather-widget>
+</div>

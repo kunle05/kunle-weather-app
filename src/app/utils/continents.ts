@@ -4,10 +4,6 @@ export const Continents = [
     key: 'AF',
   },
   {
-    value: 'Antartica',
-    key: 'AN',
-  },
-  {
     value: 'Asia',
     key: 'AS',
   },

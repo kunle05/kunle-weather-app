@@ -1,0 +1,29 @@
+:host ::ng-deep .mat-form-field .mat-input-element {
+  caret-color: #ffffff;
+  color: #ffffff;
+}
+:host ::ng-deep .mat-form-field .mat-form-field-flex {
+  background-color: #3f51b5 !important;
+  color: #ffffff;
+}
+:host ::ng-deep .mat-form-field .mat-form-field-label {
+  color: #f6f6f6;
+}
+:host ::ng-deep .mat-form-field span {
+  color: #f6f6f6a3;
+}
+:host ::ng-deep.mat-form-field-ripple {
+  background-color: #f6f6f6a3 !important;
+ }
+:host ::ng-deep .mat-input-element::placeholder{
+  color: #f6f6f6a3;
+}
+:host ::ng-deep.mat-form-field-appearance-fill .mat-form-field-underline::before {
+  background-color: #f6f6f6a3 !important;
+}
+::ng-deep .filter.mat-focused .mat-form-field-underline {
+  color: white;
+}
+:host ::ng-deep .mat-form-field-wrapper{
+  width: 275px
+}

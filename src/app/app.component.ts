@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { LatLng } from './utils/latLng';
-import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -9,10 +8,14 @@ import { environment } from '../environments/environment';
 })
 export class AppComponent {
   title = 'kunle-weather-app';
-  latLng?: LatLng;
+  location?: LatLng;
+  temperature?: number;
 
-  setGeocode(data: LatLng): void {
-    this.latLng = data;
-    console.log(this.latLng);
+  setLocation(data: LatLng): void {
+    this.location = data;
+  }
+
+  setTemp(temp: number): void {
+    this.temperature = temp;
   }
 }

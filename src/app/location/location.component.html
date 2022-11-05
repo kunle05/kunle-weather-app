@@ -6,12 +6,23 @@
     <mat-label>{{ field.name }}</mat-label>
     <mat-select
       (selectionChange)="onChange($event, field.name)"
-      [disabled]="loading || field.value.length === 0"
+      [disabled]="isLoading || field.value.length === 0"
       required
     >
-      <mat-option *ngFor="let item of field.value" [value]="item.key">
+      <mat-option
+        *ngFor="let item of field.value"
+        [value]="{ key: item.key, val: item.value }"
+      >
         {{ item.value }}
       </mat-option>
     </mat-select>
   </mat-form-field>
+  <button
+    (click)="submit()"
+    [disabled]="isLoading || !selectedValue"
+    mat-raised-button
+    class="button"
+  >
+    Get Temperature
+  </button>
 </div>

@@ -13,11 +13,21 @@ export class GeocoderService {
   getLatLng(request: google.maps.GeocoderRequest): Observable<LatLng> {
     return new Observable((subscriber) => {
       this.geocoder.geocode(request, (result) => {
-        console.log(result);
-        let res = {
-          lat: result[0].geometry.location.lat(),
-          lng: result[0].geometry.location.lng(),
-        };
+        let res;
+        if (result) {
+          res = {
+            address: request.address!,
+            lat: result[0].geometry.location.lat(),
+            lng: result[0].geometry.location.lng(),
+            result: result,
+          };
+        } else {
+          res = {
+            address: request.address!,
+            lat: 0,
+            lng: 0,
+          };
+        }
         subscriber.next(res);
       });
     });

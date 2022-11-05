@@ -1,6 +1,27 @@
-<div class="container-fluid px-5">
-  <div class="row header">
-    <app-location (latLngEmitter)="setGeocode($event)"></app-location>
+<div class="content">
+  <div class="container-fluid header px-5">
+    <div class="row">
+      <app-location
+        (location)="setLocation($event)"
+        class="col-9 p-0"
+      ></app-location>
+      <app-location-search
+        (location)="setLocation($event)"
+        class="col"
+      ></app-location-search>
+    </div>
   </div>
-  <app-weather *ngIf="latLng" [latLng]="latLng"></app-weather>
+  <div class="m-4">
+    <div class="row" *ngIf="location">
+      <app-weather
+        [location]="location"
+        (temperature)="setTemp($event)"
+        class="col"
+      ></app-weather>
+      <div class="col">
+        <app-map [location]="location" [temperature]="temperature!"></app-map>
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer>
 </div>

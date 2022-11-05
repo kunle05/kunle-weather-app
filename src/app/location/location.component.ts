@@ -11,9 +11,10 @@ import { LatLng } from '../utils/latLng';
   styleUrls: ['./location.component.scss'],
 })
 export class LocationComponent implements OnInit {
-  loading: boolean = false;
+  isLoading: boolean = false;
   fieldsets = FIELDSETS;
-  @Output() latLngEmitter: EventEmitter<LatLng> = new EventEmitter();
+  selectedValue: string = '';
+  @Output() location: EventEmitter<LatLng> = new EventEmitter();
 
   constructor(
     private _locationService: LocationService,
@@ -39,32 +40,57 @@ export class LocationComponent implements OnInit {
   }
 
   continentSelected(e: MatSelectChange): void {
-    this.loading = true;
-    this._locationService.getCountryList(e.value).subscribe((data) => {
+    this.isLoading = true;
+    this.selectedValue = e.value.val;
+    this._locationService.getCountryList(e.value.key).subscribe((data) => {
       this.fieldsets[1].value = data;
-      this.loading = !this.loading;
+      this.isLoading = !this.isLoading;
     });
   }
 
   countrySelected(e: MatSelectChange): void {
-    this.loading = true;
-    this._locationService.getStateList(e.value).subscribe((data) => {
-      this.fieldsets[2].value = data;
-      this.loading = !this.loading;
+    this.isLoading = true;
+    this.selectedValue = e.value.val;
+    this._locationService.getStateList(e.value.key).subscribe({
+      next: (data) => {
+        this.fieldsets[2].value = data;
+        this.isLoading = !this.isLoading;
+      },
+      error: () => {
+        this.isLoading = !this.isLoading;
+        this.selectedValue = '';
+      },
     });
   }
 
   stateSelected(e: MatSelectChange): void {
-    this.loading = true;
-    this._locationService.getCityList(e.value).subscribe((data) => {
-      this.fieldsets[3].value = data;
-      this.loading = !this.loading;
+    this.isLoading = true;
+    this.selectedValue = e.value.val;
+    this._locationService.getCityList(e.value.key).subscribe({
+      next: (data) => {
+        this.fieldsets[3].value = data;
+        this.isLoading = !this.isLoading;
+      },
+      error: () => {
+        this.isLoading = !this.isLoading;
+        this.selectedValue = '';
+      },
     });
   }
 
   citySelected(e: MatSelectChange): void {
-    this._geocoder.getLatLng({ address: e.value }).subscribe((data) => {
-      this.latLngEmitter.emit(data);
-    });
+    this.selectedValue = e.value.val;
+    this.submit();
+  }
+
+  submit(): void {
+    this._geocoder
+      .getLatLng({ address: this.selectedValue })
+      .subscribe((data) => {
+        if (data.lat !== 0 && data.lng !== 0) {
+          this.location.emit(data);
+          this.selectedValue = '';
+        }
+      });
   }
 }

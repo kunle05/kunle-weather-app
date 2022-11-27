@@ -12,6 +12,12 @@
     </div>
   </div>
   <div class="m-4">
+    <div class="loading" *ngIf="!location">
+      <mat-spinner *ngIf="!locationError"></mat-spinner>
+      <h2 *ngIf="locationError">
+        We ran into some trouble getting your current location.
+      </h2>
+    </div>
     <div class="row" *ngIf="location">
       <app-weather
         [location]="location"

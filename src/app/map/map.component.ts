@@ -8,7 +8,6 @@ import {
 } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { LatLng } from '../utils/latLng';
-import { style } from '@angular/animations';
 
 @Component({
   selector: 'app-map',
@@ -56,7 +55,11 @@ export class MapComponent implements OnInit, AfterViewInit {
       mapTypeControl: false,
     });
 
-    this.map.fitBounds(this.mapData.result[0].geometry.bounds);
+    if (this.mapData.result === 'current location') {
+      this.map.setZoom(15);
+    } else {
+      this.map.fitBounds(this.mapData.result[0].geometry.bounds);
+    }
 
     this.marker = new google.maps.Marker({
       map: this.map,

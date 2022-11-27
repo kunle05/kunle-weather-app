@@ -32,4 +32,44 @@ export class GeocoderService {
       });
     });
   }
+
+  getUserLocation(): Observable<any> {
+    return new Observable((subscriber) => {
+      navigator.geolocation.getCurrentPosition(
+        (position: GeolocationPosition) => {
+          const pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          subscriber.next(pos);
+        },
+        (error: any) => {
+          subscriber.error(error);
+        }
+      );
+    });
+  }
+
+  geocodeLatLng(latlng: any): Observable<LatLng> {
+    return new Observable((subscriber) => {
+      this.geocoder.geocode({ location: latlng }, (result) => {
+        let address = '';
+
+        for (let i = 0; i < result[0].address_components.length; i++) {
+          if (result[0].address_components[i].types.includes('political')) {
+            address = result[0].address_components[i].long_name;
+            break;
+          }
+        }
+
+        let res = {
+          address: address,
+          lat: latlng.lat,
+          lng: latlng.lng,
+          result: 'current location',
+        };
+        subscriber.next(res);
+      });
+    });
+  }
 }

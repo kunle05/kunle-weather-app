@@ -1,3 +1,10 @@
 .header {
   background-color: #3f51b5;
 }
+
+.loading {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  top: 25vh;
+}

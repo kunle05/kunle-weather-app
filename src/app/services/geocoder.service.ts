@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { mergeMap, Observable } from 'rxjs';
 import { LatLng } from '../utils/latLng';
 
 @Injectable({
@@ -33,7 +33,7 @@ export class GeocoderService {
     });
   }
 
-  getUserLocation(): Observable<any> {
+  getUserLatLng(): Observable<any> {
     return new Observable((subscriber) => {
       navigator.geolocation.getCurrentPosition(
         (position: GeolocationPosition) => {
@@ -71,5 +71,11 @@ export class GeocoderService {
         subscriber.next(res);
       });
     });
+  }
+
+  getUserLocation(): Observable<any> {
+    return this.getUserLatLng().pipe(
+      mergeMap((res: any) => this.geocodeLatLng(res))
+    );
   }
 }

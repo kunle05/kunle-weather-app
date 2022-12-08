@@ -18,18 +18,15 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     if (navigator.geolocation) {
-      this._geocoder
-        .getUserLocation()
-        .pipe(mergeMap((res: any) => this._geocoder.geocodeLatLng(res)))
-        .subscribe({
-          next: (data: any) => {
-            this.location = data;
-          },
-          error: (error: any) => {
-            console.log(error);
-            this.locationError = true;
-          },
-        });
+      this._geocoder.getUserLocation().subscribe({
+        next: (data: any) => {
+          this.location = data;
+        },
+        error: (error: any) => {
+          console.log(error);
+          this.locationError = true;
+        },
+      });
     } else {
       alert('Geolocation is not supported by this browser');
     }

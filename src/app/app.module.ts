@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -22,6 +22,9 @@ import { LocationSearchComponent } from './location-search/location-search.compo
 import { ToUppercasePipe } from './to-uppercase.pipe';
 import { MapComponent } from './map/map.component';
 import { FooterComponent } from './footer/footer.component';
+
+import { GeocoderService } from './services/geocoder.service';
+import { appUserLocationFactory } from './app.init';
 
 @NgModule({
   declarations: [
@@ -48,7 +51,15 @@ import { FooterComponent } from './footer/footer.component';
     MatButtonModule,
     MatProgressSpinnerModule,
   ],
-  providers: [DecimalPipe],
+  providers: [
+    DecimalPipe,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: () => appUserLocationFactory,
+      deps: [GeocoderService],
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
